@@ -1,4 +1,4 @@
-import { GithubAuthProvider, GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth";
+import { /* FacebookAuthProvider, */ GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth";
 import app from "../firebase/firebase.init";
 import { useState } from "react";
 
@@ -11,6 +11,8 @@ const LogIn = () => {
 
     const googleProvider = new GoogleAuthProvider(); // google
     const githubProvider = new GithubAuthProvider(); // github
+    // const facebookProvider = new FacebookAuthProvider(); // facebook
+    const twitterProvider = new TwitterAuthProvider(); // twitter
 
     const handleGoogleSignIn = () => {
         signInWithPopup(auth, googleProvider)
@@ -27,12 +29,37 @@ const LogIn = () => {
     const handleGithubSignIn = () => {
         signInWithPopup(auth, githubProvider)
             .then(result => {
-                // const loggedInUser = result.user;
-                console.log(result.user);
-                // setUser(loggedInUser);
+                const loggedInUser = result.user;
+                console.log(loggedInUser);
+                setUser(loggedInUser);
             })
             .catch(error => {
                 console.log('error', error.message);
+            })
+    }
+
+    /* const handleFacebookSignIn = () => {
+        signInWithPopup(auth, facebookProvider)
+            .then(result => {
+                // const loggedInUser = result.user;
+                // console.log(loggedInUser);
+                // setUser(loggedInUser);
+                console.log(result);
+            })
+            .catch(error => {
+                console.log('error', error.message);
+            })
+    } */
+
+    const handleTwitterSignIn = () => {
+        signInWithPopup(auth, twitterProvider)
+            .then(result => {
+                const loggedInUser = result.user;
+                console.log(loggedInUser);
+                setUser(loggedInUser);
+            })
+            .catch(error => {
+                console.log(error);
             })
     }
 
@@ -53,6 +80,8 @@ const LogIn = () => {
             <>
                 <button onClick={handleGoogleSignIn} className="bg-gray-100 px-3 py-1 rounded-md border-2">Google LogIn</button>
                 <button onClick={handleGithubSignIn} className="bg-gray-100 px-3 py-1 rounded-md border-2">Github LogIn</button>
+                {/* <button onClick={handleFacebookSignIn} className="bg-gray-100 px-3 py-1 rounded-md border-2">Facebook LogIn</button> */}
+                <button onClick={handleTwitterSignIn} className="bg-gray-100 px-3 py-1 rounded-md border-2">Twitter LogIn</button>
             </>}
             {user && <div>
                 <h3 className="text-xl font-bold">User: {user?.displayName}</h3>
