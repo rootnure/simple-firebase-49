@@ -12,5 +12,6 @@
  * 11. import googleAuthProvider form "firebase/auth"
  * 12. import and use signInWithPopup and pass auth & provider
  * 13. activate sign-in method (google, facebook, github etc.) from Build -> Authentication -> Sign-in method
- * 14. 
+ * 14. Activate authorized domain (localhost, custom-domain.com etc.)
+ * 15. import and use signOut and pass auth to sign-out
  */
