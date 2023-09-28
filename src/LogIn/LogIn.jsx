@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth";
 import app from "../firebase/firebase.init";
 import { useState } from "react";
 
@@ -8,14 +8,28 @@ const LogIn = () => {
     const [user, setUser] = useState(null);
 
     const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
+
+    const googleProvider = new GoogleAuthProvider(); // google
+    const githubProvider = new GithubAuthProvider(); // github
 
     const handleGoogleSignIn = () => {
-        signInWithPopup(auth, provider)
+        signInWithPopup(auth, googleProvider)
             .then(result => {
                 const loggedInUser = result.user;
                 console.log(loggedInUser);
                 setUser(loggedInUser);
+            })
+            .catch(error => {
+                console.log('error', error.message);
+            })
+    }
+
+    const handleGithubSignIn = () => {
+        signInWithPopup(auth, githubProvider)
+            .then(result => {
+                // const loggedInUser = result.user;
+                console.log(result.user);
+                // setUser(loggedInUser);
             })
             .catch(error => {
                 console.log('error', error.message);
@@ -34,9 +48,12 @@ const LogIn = () => {
     }
 
     return (
-        <div>
+        <div className="my-4 space-x-6">
             {user ? <button onClick={handleSignOut} className="bg-gray-100 px-3 py-1 rounded-md border-2">Sign Out</button> :
-            <button onClick={handleGoogleSignIn} className="bg-gray-100 px-3 py-1 rounded-md border-2">Google LogIn</button>}
+            <>
+                <button onClick={handleGoogleSignIn} className="bg-gray-100 px-3 py-1 rounded-md border-2">Google LogIn</button>
+                <button onClick={handleGithubSignIn} className="bg-gray-100 px-3 py-1 rounded-md border-2">Github LogIn</button>
+            </>}
             {user && <div>
                 <h3 className="text-xl font-bold">User: {user?.displayName}</h3>
                 <p>Email: {user?.email}</p>
