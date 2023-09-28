@@ -1,5 +1,5 @@
 import { /* FacebookAuthProvider, */ GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth";
-import app from "../firebase/firebase.init";
+import app from "../../firebase/firebase.init";
 import { useState } from "react";
 
 
